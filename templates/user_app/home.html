@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Home - {% endblock %}
+
+{% block content %}
+
+<!-- Full-Width Hero Section -->
+<section class="hero">
+    <div class="video-container">
+        {% for video in videos %}
+            <video class="hero-video" autoplay loop muted playsinline>
+                <source src="{{ video.video.url }}" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+        {% endfor %}
+        <div class="overlay"></div> <!-- Dark Overlay -->
+    </div>
+
+    <!-- Hero Content -->
+    <div class="hero-content">
+        <h1>WELCOME TO READ VAULT</h1>
+        <p>EXPLORE • DREAM • DISCOVER</p>
+        <a href="{% url 'home' %}" class="btn">Start Exploring</a>
+    </div>
+</section>
+
+
+
+
+
+
+<!-- Featured Blog Posts -->
+<div class="container my-5">
+    <h2 class="text-center mb-4">Latest Blog Posts</h2>
+    <div class="row">
+        {% for post in posts %}
+        <div class="col-md-4">
+            <div class="card mb-4 shadow-sm">
+                <img src="{{ post.image.url }}" class="card-img-top" alt="{{ post.title }}">
+                <div class="card-body">
+                    <h5 class="card-title">{{ post.title }}</h5>
+                    <p class="card-text">{{ post.excerpt }}</p>
+                    <a href="{% url 'post_detail' post.id %}" class="btn btn-primary">Read More</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

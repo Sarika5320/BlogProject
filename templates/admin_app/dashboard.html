@@ -1,0 +1,66 @@
+{% extends 'admin_app/admin_base.html' %}
+{% load static %}
+
+{% block title %}Admin Dashboard{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="row">
+        <!-- Sidebar -->
+        <nav class="col-md-3 col-lg-2 d-md-block bg-primary sidebar vh-100" style="position: relative; left: 0;">
+            <div class="pt-3">
+                <ul class="nav flex-column">
+                    <li class="nav-item">
+                        <a class="nav-link active text-white" href="#">Dashboard</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="#">Manage Users</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="#">Manage Posts</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="#">Manage Comments</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+        
+        <!-- Main Content -->
+        <main class="col-md-9 ms-auto col-lg-10 px-md-4" style="background-color: #f8f9fa; min-height: 100vh;">
+            <h2 class="mt-4 text-primary">Admin Dashboard</h2>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="card shadow border-primary mb-4">
+                        <div class="card-body text-center">
+                            <h5 class="card-title text-primary">Total Users</h5>
+                            <p class="card-text display-6">{{ user_count }}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card shadow border-success mb-4">
+                        <div class="card-body text-center">
+                            <h5 class="card-title text-success">Total Posts</h5>
+                            <p class="card-text display-6">{{ post_count }}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card shadow border-danger mb-4">
+                        <div class="card-body text-center">
+                            <h5 class="card-title text-danger">Total Comments</h5>
+                            <p class="card-text display-6">{{ comment_count }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+</div>
+
+<!-- Footer -->
+<footer class="bg-dark text-white text-center p-3 fixed-bottom">
+    <p>Admin Dashboard - &copy; 2025</p>
+</footer>
+{% endblock %}
