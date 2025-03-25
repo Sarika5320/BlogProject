@@ -7,15 +7,7 @@
     <div class="card p-4 shadow" style="max-width: 400px; width: 100%;">
         <h3 class="text-center mb-3">Create an Account</h3>
 
-        <!--Success Message -->
-        {% if messages %}
-            {% for message in messages %}
-                <div class="alert alert-success alert-dismissible fade show text-center" role="alert">
-                    {{ message }}
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                </div>
-            {% endfor %}
-        {% endif %}
+
 
         <!--Form Error Messages -->
         {% if form.errors %}

@@ -33,6 +33,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+   
     'django_extensions',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -43,6 +44,9 @@ INSTALLED_APPS = [
     'admin_app',
     'accounts', 
     'user_app',
+    'ckeditor',
+    'ckeditor_uploader',
+    'widget_tweaks',
 ]
 
 MIDDLEWARE = [
@@ -135,7 +139,24 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
+CKEDITOR_UPLOAD_PATH = "uploads/"
+CKEDITOR_ALLOW_NONIMAGE_FILES = False  # Only allow images
+CKEDITOR_CONFIGS = {
+    'default': {
+        'toolbar': 'full',
+        'height': '500px',  # Increase height
+        'width': '100%',  # Make it full-width
+        'extraPlugins': ','.join([
+            'image', 'uploadimage',  # Corrected plugin names
+        ]),
+    },
+}
+
+
 LOGIN_REDIRECT_URL = reverse_lazy('admin_app:admin_dashboard') 
 
 CSRF_COOKIE_SECURE = False
 SESSION_COOKIE_SECURE = False
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+DEFAULT_FROM_EMAIL = 'webmaster@localhost'

@@ -1,0 +1,89 @@
+/* 🌎 General Styles */
+body {
+  background-color: #111; /* Dark background like the hero section */
+  font-family: 'Merriweather', serif; /* Matches your main font */
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+/* 🌎 Centering the Auth Card */
+.login-container {
+  width: 100%;
+  max-width: 400px;
+  text-align: center;
+}
+
+/* 🌎 Auth Card Styling */
+.login-card {
+  width: 100%;
+  background: #222; /* Darker card background for a sleek look */
+  border-radius: 12px;
+  padding: 25px;
+  border: 1px solid rgba(255, 255, 255, 0.2); /* Subtle border */
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+  color: white; /* White text for readability */
+}
+
+/* 🌎 Card Heading */
+.login-card h2 {
+  color: #fff;
+  font-weight: bold;
+  margin-bottom: 15px;
+}
+
+/* 🌎 Input Fields */
+.form-control {
+  background: #333;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 6px;
+  padding: 10px;
+  font-size: 1rem;
+  color: white;
+}
+
+.form-control:focus {
+  border-color: #ff99cc; /* Accent color from style.css */
+  box-shadow: 0px 0px 5px rgba(255, 153, 204, 0.5);
+  background: #444;
+}
+
+/* 🌎 Button Styling */
+.btn-primary {
+  background-color: #ff99cc; /* Accent color matching your main site */
+  border-color: #ff99cc;
+  color: white;
+  font-weight: bold;
+  padding: 10px 15px;
+  border-radius: 6px;
+  width: 100%;
+  transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+  background-color: #ff6699;
+  border-color: #ff6699;
+  transform: scale(1.05);
+}
+
+/* 🌎 Links */
+.text-center a {
+  color: #ff99cc; /* Matching style.css */
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.text-center a:hover {
+  color: #ff6699;
+  text-decoration: underline;
+}
+
+/* 🌎 Small Text for Extra Links */
+.small-text {
+  font-size: 0.9rem;
+  color: #ccc;
+  margin-top: 10px;
+}

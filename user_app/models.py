@@ -1,10 +1,13 @@
 from django.db import models
 from django.contrib.auth.models import User
+from ckeditor_uploader.fields import RichTextUploadingField 
+
 #BlogPost Model
 class BlogPost(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)  # Link to user
     title = models.CharField(max_length=255)
-    content = models.TextField()
+    #content = models.TextField()
+    content = RichTextUploadingField() 
     image = models.ImageField(upload_to="blog_images/", blank=True, null=True)  # Optional image
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)

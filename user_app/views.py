@@ -37,21 +37,21 @@ def update_profile(request):
         profile.bio = request.POST.get("bio", profile.bio)
         profile.phone = request.POST.get("phone", profile.phone)
 
-        # ✅ Fix: Check if a new profile picture is uploaded
+        #Check if a new profile picture is uploaded
         if "profile_picture" in request.FILES:
             new_picture = request.FILES["profile_picture"]
 
-            # ✅ Delete old profile picture before saving a new one
+            # Delete old profile picture before saving a new one
             if profile.profile_picture and profile.profile_picture.name != "profile_pics/default.jpg":
                 profile.profile_picture.delete(save=False)
 
             profile.profile_picture = new_picture
 
-        # ✅ Save changes
+        # Save changes
         user.save()
         profile.save()
 
-        # ✅ Add success message
+        # Add success message
         messages.success(request, "Profile updated successfully!")
         return redirect("user_app:settings")
 
@@ -110,7 +110,7 @@ def blog_detail(request, blog_id):
     return render(request, 'user_app/blog_detail.html', {
         'blog': blog,
         'comments': comments,
-        'form': form,
+        'comment_form': form, 
         'reply_form': reply_form,
         'source': source,  # Pass the source to the template
     })

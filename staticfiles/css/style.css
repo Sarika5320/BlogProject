@@ -1,0 +1,146 @@
+/* 🔹 Fix Navbar */
+.navbar {
+  position: fixed; /* Keeps navbar at the top */
+  top: 0;
+  left: 0;
+  width: 100vw; /* Full width */
+  height: 60px; /* Adjust height as needed */
+  background-color: rgba(255, 255, 255, 0.9); /* Slight transparency */
+  box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
+  z-index: 1000; /* Ensures it's above other content */
+  display: flex;
+  align-items: center;
+  padding: 0 20px;
+}
+
+/* 🔹 Fix Navbar Brand (Logo) */
+.navbar-brand {
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: #222 !important;
+}
+
+/* 🔹 Navbar Links */
+.navbar-nav {
+  margin-left: auto; /* Push menu items to the right */
+}
+
+.nav-link {
+  color: #444 !important;
+  font-weight: 500;
+  padding: 10px 15px;
+  transition: all 0.3s ease;
+}
+
+.nav-link:hover {
+  color: #ff6600 !important; /* Accent color */
+}
+
+/* 🔹 Prevent Navbar From Pushing Down Content */
+body {
+  padding-top: 60px; /* Matches navbar height */
+}
+
+
+/* 🔹 Full-Width Hero Section */
+.hero {
+  position: relative;
+  width: 100vw; /* Ensures full width */
+  height: 100vh; /* Ensures full height */
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* 🔹 Video Container */
+.video-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/* 🔹 Full-Width & Full-Height Hero Section */
+.hero {
+  position: relative;
+  width: 100vw; /* Ensures full width */
+  height: 100vh; /* Ensures full height */
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0; /* Removes any default margin */
+  padding: 0;
+}
+
+/* 🔹 Video Container (Ensures Proper Sizing) */
+.video-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+}
+
+/* 🔹 Full-Screen Video */
+.hero-video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Ensures full coverage without distortion */
+}
+
+/* 🔹 Dark Overlay (For Better Text Visibility) */
+.overlay {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.4); /* Adjust overlay opacity */
+  z-index: 1;
+}
+
+/* 🔹 Centered Text */
+.hero-content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  color: white;
+  z-index: 2;
+  width: 90%;
+  max-width: 800px;
+  text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);
+}
+
+.hero-content h1 {
+  font-size: 3.5rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+
+.hero-content p {
+  font-size: 1.5rem;
+  font-weight: 400;
+  margin-bottom: 20px;
+}
+
+/* 🔹 CTA Button */
+.btn {
+  display: inline-block;
+  padding: 12px 30px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: white;
+  background: #ff99cc;
+  border-radius: 5px;
+  text-decoration: none;
+  transition: all 0.3s ease-in-out;
+  border: none;
+}
+
+.btn:hover {
+  background: #ff6699;
+}

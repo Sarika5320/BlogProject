@@ -1,0 +1,4 @@
+.cke_editable {
+  min-height: 600px !important; /* Increase editor height */
+  max-width: 100% !important;
+}

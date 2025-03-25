@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %}Home - {% endblock %}
+{% block title %}Home -WanderLense {% endblock %}
 
 {% block content %}
 
@@ -19,7 +19,7 @@
 
     <!-- Hero Content -->
     <div class="hero-content">
-        <h1>WELCOME TO WANDER LENSE</h1>
+        <h2>WELCOME TO WANDER LENSE</h2>
         <p>EXPLORE • DREAM • DISCOVER</p>
         <a href="{% url 'accounts:login' %}" class="btn">Start Exploring</a>
     </div>
@@ -27,7 +27,7 @@
 
 <div class="container mt-5">
     <h2>Recent Blogs</h2>
-    <div class="row">
+    <div class="row row-cols-1 row-cols-md-3 g-4">
         {% for blog in blogs %}
         <div class="col-md-4">
             <div class="card mb-4 shadow-sm d-flex flex-column h-100">
@@ -36,7 +36,7 @@
                 {% endif %}
                 <div class="card-body d-flex flex-column">
                     <h5 class="card-title">{{ blog.title }}</h5>
-                    <p class="card-text">{{ blog.content|truncatewords:20 }}</p>
+                    <p class="card-text">{{ blog.content|striptags|truncatewords:20 }}</p>
                     <p class="text-muted">By {{ blog.user.username }} on {{ blog.created_at|date:"M d, Y" }}</p>
                     
                     <!-- Read More Button Restriction -->
@@ -78,5 +78,63 @@
         {% endfor %}
     </div>
 </div>
+
+<!-- About Section -->
+<section class="py-5 bg-light" id="about">
+    <div class="container">
+      <h2 class="text-center mb-4">About WanderLense</h2>
+      <div class="row justify-content-center">
+        <div class="col-md-10">
+          <p class="lead text-center">
+            At <strong>WanderLense</strong>, we believe every journey holds a story, and every lens reveals a new angle of the world.
+          </p>
+          <p>
+            WanderLense is a community-driven travel blog platform that allows adventurers and explorers to share their stories through compelling words and breathtaking visuals. Whether you're scaling mountains, backpacking through cities, or exploring hidden gems, your story belongs here.
+          </p>
+          <p>
+            With easy-to-use tools for blogging and photo sharing, WanderLense helps you document your travels and connect with a global audience who shares your passion for discovery.
+          </p>
+          <p>
+            Join us in exploring the world — one story, one photo, and one journey at a time.
+          </p>
+          <div class="text-center mt-4">
+            <a href="{% url 'accounts:register' %}" class="btn btn-primary">Start Your Journey</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Contact Section -->
+<section class="py-5" id="contact">
+    <div class="container">
+      <h2 class="text-center mb-4">Get in Touch</h2>
+      <div class="row justify-content-center">
+        <div class="col-md-8">
+          <p class="text-center mb-4">
+            Have questions, feedback, or want to collaborate with WanderLense? We'd love to hear from you! Just fill out the form below and we'll get back to you as soon as possible.
+          </p>
+          <form>
+            <div class="mb-3">
+              <label for="name" class="form-label">Your Name</label>
+              <input type="text" class="form-control" id="name" placeholder="Enter your name" required>
+            </div>
+            <div class="mb-3">
+              <label for="email" class="form-label">Your Email</label>
+              <input type="email" class="form-control" id="email" placeholder="name@example.com" required>
+            </div>
+            <div class="mb-3">
+              <label for="message" class="form-label">Your Message</label>
+              <textarea class="form-control" id="message" rows="4" placeholder="Write your message here..." required></textarea>
+            </div>
+            <div class="text-center">
+              <button type="submit" class="btn btn-primary">Send Message</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+  
 
 {% endblock %}
