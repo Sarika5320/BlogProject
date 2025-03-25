@@ -12,7 +12,7 @@
     <div class="login-container d-flex align-items-center justify-content-center">
         <div class="card p-4 shadow-lg login-card">
             <h3 class="text-center mb-3">Sign In</h3>
-            <form method="POST">
+            <form method="POST" action="{% url 'accounts:login' %}">
                 {% csrf_token %}
                 <div class="mb-3">
                     <label for="username">Username</label>
@@ -29,7 +29,6 @@
                 <br>
                 <span>Don't have an account? <a href="{% url 'accounts:register' %}">Sign Up</a></span>
             </div>
-            <a class="nav-link" href="{% url 'home' %}">Home</a>
         </div>
     </div>
 </body>

@@ -1,0 +1,23 @@
+/* Sidebar Styling */
+.sidebar {
+  height: 100vh;
+  position: fixed;
+  top: 56px; /* Below navbar */
+  left: 0;
+  overflow-y: auto;
+  padding-top: 20px;
+}
+
+/* Adjust main content to fit next to sidebar */
+.main-content {
+  margin-left: 250px;
+  min-height: 100vh;
+  padding: 20px;
+}
+
+/* Fix Footer at Bottom */
+.footer {
+  width: 100%;
+  position: relative;
+  bottom: 0;
+}

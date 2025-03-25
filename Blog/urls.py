@@ -24,8 +24,9 @@ urlpatterns = [
     path('', include('user_app.urls')),
     path('admin/', admin.site.urls),  # Default Django Admin
     path('admin-panel/', include('admin_app.urls', namespace='admin_app')), # Include all custom admin URLs
-    path('accounts/', include('accounts.urls')),  # Account management URLs
+    path("accounts/", include("accounts.urls", namespace="accounts")),# Account management URLs
     
     
 ]
-urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

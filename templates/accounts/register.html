@@ -6,27 +6,58 @@
 <div class="container mt-5 d-flex justify-content-center">
     <div class="card p-4 shadow" style="max-width: 400px; width: 100%;">
         <h3 class="text-center mb-3">Create an Account</h3>
-        <form method="POST">
-            {% csrf_token %}
-            <div class="mb-3">
-                {{ form.username.label_tag }}
-                {{ form.username }}
+
+        <!--Success Message -->
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-success alert-dismissible fade show text-center" role="alert">
+                    {{ message }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            {% endfor %}
+        {% endif %}
+
+        <!--Form Error Messages -->
+        {% if form.errors %}
+            <div class="alert alert-danger">
+                <ul>
+                    {% for field, errors in form.errors.items %}
+                        {% for error in errors %}
+                            <li>{{ field|title }}: {{ error }}</li>
+                        {% endfor %}
+                    {% endfor %}
+                </ul>
             </div>
-            <div class="mb-3">
-                {{ form.email.label_tag }}
-                {{ form.email }}
-            </div>
-            <div class="mb-3">
-                {{ form.password1.label_tag }}
-                {{ form.password1 }}
-            </div>
-            <div class="mb-3">
-                {{ form.password2.label_tag }}
-                {{ form.password2 }}
-            </div>
-            <button type="submit" class="btn btn-primary w-100">Sign Up</button>
-        </form>
-        <p class="text-center mt-3">Already have an account? <a href="{% url 'accounts:login' %}">Login</a></p>
+        {% endif %}
+
+        <!--Show Form Only If Registration Not Successful -->
+        {% if not messages %}
+            <form method="POST" action="{% url 'accounts:register' %}">
+                {% csrf_token %}
+                <div class="mb-3">
+                    {{ form.username.label_tag }}
+                    {{ form.username }}
+                </div>
+                <div class="mb-3">
+                    {{ form.email.label_tag }}
+                    {{ form.email }}
+                </div>
+                <div class="mb-3">
+                    {{ form.password1.label_tag }}
+                    {{ form.password1 }}
+                </div>
+                <div class="mb-3">
+                    {{ form.password2.label_tag }}
+                    {{ form.password2 }}
+                </div>
+                <button type="submit" class="btn btn-primary w-100">Sign Up</button>
+            </form>
+        {% else %}
+            <!--Hide form and show login link after successful registration -->
+            <p class="text-center mt-3">You have successfully registered!  
+                <a href="{% url 'accounts:login' %}">Click here to log in</a>.
+            </p>
+        {% endif %}
     </div>
 </div>
 {% endblock %}

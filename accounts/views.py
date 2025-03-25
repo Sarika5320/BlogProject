@@ -19,32 +19,38 @@ def register(request):
         form = SignupForm(request.POST)
         if form.is_valid():
             user = form.save()
-            UserProfile.objects.create(user=user)  #Auto-create profile
-            login(request, user)  # Auto-login after registration
-            return redirect("user_dashboard")  # Redirect to user dashboard
+            messages.success(request, "Registration successful! Please log in.")  # ✅ Success message
+            form = None
+            #return redirect("accounts:login")
+        else:
+            messages.error(request, "Please correct the errors below.")
     else:
         form = SignupForm()
+
     return render(request, "accounts/register.html", {"form": form})
 
 #Custom Login View
 def custom_login(request):
     if request.method == "POST":
-        username = request.POST.get('username')
-        password = request.POST.get('password')
+        username = request.POST.get("username")
+        password = request.POST.get("password")
         user = authenticate(request, username=username, password=password)
-        
+
         if user is not None:
             login(request, user)
-            return redirect('admin_app:admin_dashboard')  # Redirect to the admin dashboard after login
+            if user.is_superuser:  # Admin users go to admin dashboard
+                return redirect("admin_app:admin_dashboard")
+            else:  # Normal users go to user dashboard
+                return redirect("user_app:user_dashboard")
         else:
-            messages.error(request, "Invalid username or password")
-    
-    return render(request, 'accounts/login.html')
+            messages.error(request, "Invalid username or password.")
+
+    return render(request, "accounts/login.html")
 
 #Custom Logout View
 def custom_logout(request):
     logout(request)
-    return redirect('home')  # Redirect to home page after logout
+    return redirect("user_app:home")   # Redirect to home page after logout
 
 #Password Reset Request View
 def password_reset_request(request):

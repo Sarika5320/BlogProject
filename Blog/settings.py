@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'admin_app',
     'accounts', 
+    'user_app',
 ]
 
 MIDDLEWARE = [
@@ -135,3 +136,6 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 LOGIN_REDIRECT_URL = reverse_lazy('admin_app:admin_dashboard') 
+
+CSRF_COOKIE_SECURE = False
+SESSION_COOKIE_SECURE = False

@@ -19,16 +19,40 @@
 
     <!-- Hero Content -->
     <div class="hero-content">
-        <h1>WELCOME TO READ VAULT</h1>
+        <h1>WELCOME TO WANDER LENSE</h1>
         <p>EXPLORE • DREAM • DISCOVER</p>
-        <a href="{% url 'home' %}" class="btn">Start Exploring</a>
+        <a href="{% url 'accounts:login' %}" class="btn">Start Exploring</a>
     </div>
 </section>
 
-
-
-
-
+<div class="container mt-5">
+    <h2>Recent Blogs</h2>
+    <div class="row">
+        {% for blog in blogs %}
+        <div class="col-md-4">
+            <div class="card mb-4 shadow-sm d-flex flex-column h-100">
+                {% if blog.image %}
+                <img src="{{ blog.image.url }}" class="card-img-top" alt="{{ blog.title }}">
+                {% endif %}
+                <div class="card-body d-flex flex-column">
+                    <h5 class="card-title">{{ blog.title }}</h5>
+                    <p class="card-text">{{ blog.content|truncatewords:20 }}</p>
+                    <p class="text-muted">By {{ blog.user.username }} on {{ blog.created_at|date:"M d, Y" }}</p>
+                    
+                    <!-- Read More Button Restriction -->
+                    {% if user.is_authenticated %}
+                        <a href="{% url 'user_app:blog_detail' blog.id %}" class="btn btn-primary mt-auto">Read More</a>
+                    {% else %}
+                        <a href="{% url 'accounts:login' %}" class="btn btn-primary mt-auto">Read More</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <p>No blogs available. <a href="{% url 'user_app:create_blog' %}">Create one</a>!</p>
+        {% endfor %}
+    </div>
+</div>
 
 <!-- Featured Blog Posts -->
 <div class="container my-5">
@@ -36,16 +60,23 @@
     <div class="row">
         {% for post in posts %}
         <div class="col-md-4">
-            <div class="card mb-4 shadow-sm">
+            <div class="card mb-4 shadow-sm d-flex flex-column h-100">
                 <img src="{{ post.image.url }}" class="card-img-top" alt="{{ post.title }}">
-                <div class="card-body">
+                <div class="card-body d-flex flex-column">
                     <h5 class="card-title">{{ post.title }}</h5>
                     <p class="card-text">{{ post.excerpt }}</p>
-                    <a href="{% url 'post_detail' post.id %}" class="btn btn-primary">Read More</a>
+                    
+                    <!-- Read More Button Restriction -->
+                    {% if user.is_authenticated %}
+                        <a href="{% url 'user_app:blog_detail' post.id %}" class="btn btn-primary mt-auto">Read More</a>
+                    {% else %}
+                        <a href="{% url 'login' %}" class="btn btn-primary mt-auto">Read More</a>
+                    {% endif %}
                 </div>
             </div>
         </div>
         {% endfor %}
     </div>
 </div>
+
 {% endblock %}

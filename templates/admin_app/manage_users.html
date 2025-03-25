@@ -1,6 +1,5 @@
 {% extends 'admin_app/admin_base.html' %}
 {% load static %}
-
 {% block title %}Manage Users{% endblock %}
 
 {% block content %}
@@ -19,12 +18,20 @@
                 </tr>
             </thead>
             <tbody>
-                {% for user in users %}
+                {% for user in page_obj %}  {# ✅ Corrected from 'users' to 'page_obj' #}
                 <tr>
                     <td>{{ user.id }}</td>
                     <td>{{ user.username }}</td>
                     <td>{{ user.email }}</td>
-                    <td>{{ user.role }}</td>
+                    <td>
+                        {% if user.is_superuser %}
+                            <span class="badge bg-danger">Super Admin</span>
+                        {% elif user.is_staff %}
+                            <span class="badge bg-warning">Admin</span>
+                        {% else %}
+                            <span class="badge bg-primary">User</span>
+                        {% endif %}
+                    </td>
                     <td>
                         {% if user.is_active %}
                             <span class="badge bg-success">Active</span>
@@ -34,7 +41,11 @@
                     </td>
                     <td>
                         <a href="{% url 'admin_app:edit_user' user.id %}" class="btn btn-sm btn-warning">Edit</a>
-                        <a href="{% url 'admin_app:delete_user' user.id %}" class="btn btn-sm btn-danger">Delete</a>
+                        <form method="POST" action="{% url 'admin_app:delete_user' user.id %}" onsubmit="return confirmDelete();">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+                        </form>
+                        
                     </td>
                 </tr>
                 {% empty %}

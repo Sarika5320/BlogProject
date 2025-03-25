@@ -1,0 +1,9 @@
+body { font-family: 'Poppins', sans-serif; }
+.sidebar { height: 100vh; background: #343a40; color: white; padding-top: 20px; }
+.sidebar a { color: white; padding: 10px; display: block; text-decoration: none; transition: 0.3s; }
+.sidebar a:hover { background: #495057; transform: scale(1.05); }
+.main-content { padding: 20px; min-height: 100vh; }
+.profile-img { width: 40px; height: 40px; border-radius: 50%; }
+footer { background: #343a40; color: white; padding: 15px; text-align: center; margin-top: auto; }
+.action-card { border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); transition: 0.3s; }
+.action-card:hover { transform: translateY(-5px); }

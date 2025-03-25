@@ -1,0 +1,56 @@
+{% extends 'admin_app/admin_base.html' %}
+{% load static %}
+
+{% block title %}Manage Comments{% endblock %}
+
+{% block content %}
+<div class="container mt-4" style="min-height: 80vh;">  
+    <div class="d-flex justify-content-between align-items-center">
+        <h2 class="text-primary">Manage Comments</h2>
+        
+        <!-- Back & Home Buttons -->
+        <div>
+            <a href="{% url 'admin_app:admin_dashboard' %}" class="btn btn-secondary me-2">Back</a>
+            <a href="{% url 'user_app:home' %}" class="btn btn-primary">Home</a>
+        </div>
+    </div>
+    <hr>
+
+    <table class="table table-bordered">
+        <thead class="bg-primary text-white">
+            <tr>
+                <th>Comment</th>
+                <th>User</th>
+                <th>Blog Post</th>
+                <th>Created At</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for comment in comments %}
+            <tr>
+                <td>{{ comment.content }}</td>
+                <td>{{ comment.user.username }}</td>
+                <td>
+                    <a href="{% url 'user_app:blog_detail' comment.blog.id %}?source=admin" target="_blank">
+                        {{ comment.blog.title }}
+                    </a>
+                </td>
+                <td>{{ comment.created_at|date:"M d, Y" }}</td>
+                <td>
+                    <a href="{% url 'admin_app:delete_comment' comment.id %}" 
+                        class="btn btn-danger btn-sm" 
+                        onclick="return confirmDelete();">
+                        Delete
+                    </a>
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="5" class="text-center">No comments available</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
