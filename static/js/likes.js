@@ -2,7 +2,7 @@ document.addEventListener("DOMContentLoaded", function () {
   document.querySelectorAll(".like-btn").forEach(button => {
       button.addEventListener("click", function () {
           let blogId = this.getAttribute("data-blog-id");
-          let likeCount = document.getElementById("like-count");
+          let likeCount = this.querySelector("span"); 
 
           fetch(`/like/${blogId}/`, { method: "POST", headers: { "X-CSRFToken": getCookie("csrftoken") } })
               .then(response => response.json())

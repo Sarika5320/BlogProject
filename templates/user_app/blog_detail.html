@@ -23,11 +23,10 @@
     </div>
 
     <!-- Like Button -->
-    <div class="mb-5">
-        <button class="btn btn-outline-primary like-btn" data-blog-id="{{ blog.id }}">
-            👍 Like <span id="like-count">{{ blog.total_likes }}</span>
-        </button>
-    </div>
+    <button class="btn btn-outline-primary like-btn" data-blog-id="{{ blog.id }}">
+        👍 Like <span class="like-count">{{ blog.total_likes }}</span>
+    </button>
+
 
     <!-- Comment Section -->
     <div class="mt-4">
