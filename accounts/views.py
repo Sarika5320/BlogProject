@@ -2,26 +2,25 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout, get_user_model
 from django.contrib import messages
 from django.contrib.auth.tokens import default_token_generator
-from django.core.mail import send_mail
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.utils.encoding import force_bytes, force_str
 from django.template.loader import render_to_string
 from django.urls import reverse
 from .models import UserProfile 
-
 from .forms import SignupForm
+from admin_app.utils import send_notification_email
+
 
 User = get_user_model()
 
-#Register View
+# Register View
 def register(request):
     if request.method == "POST":
         form = SignupForm(request.POST)
         if form.is_valid():
-            user = form.save()
-            messages.success(request, "Registration successful! Please log in.")  # ✅ Success message
-            form = None
-            #return redirect("accounts:login")
+            form.save()
+            messages.success(request, "Registration successful! Please log in.")
+            return redirect("accounts:login")  #Redirect after successful signup
         else:
             messages.error(request, "Please correct the errors below.")
     else:
@@ -29,7 +28,7 @@ def register(request):
 
     return render(request, "accounts/register.html", {"form": form})
 
-#Custom Login View
+# Custom Login View
 def custom_login(request):
     if request.method == "POST":
         username = request.POST.get("username")
@@ -38,21 +37,21 @@ def custom_login(request):
 
         if user is not None:
             login(request, user)
-            if user.is_superuser:  # Admin users go to admin dashboard
+            if user.is_superuser:
                 return redirect("admin_app:admin_dashboard")
-            else:  # Normal users go to user dashboard
-                return redirect("user_app:user_dashboard")
+            else:
+                return redirect("user_app:home")
         else:
             messages.error(request, "Invalid username or password.")
 
     return render(request, "accounts/login.html")
 
-#Custom Logout View
+# Custom Logout View
 def custom_logout(request):
     logout(request)
-    return redirect("user_app:home")   # Redirect to home page after logout
+    return redirect("user_app:home")
 
-#Password Reset Request View
+# Password Reset Request View (Updated)
 def password_reset_request(request):
     if request.method == "POST":
         email = request.POST.get("email")
@@ -65,10 +64,14 @@ def password_reset_request(request):
                 reverse("accounts:password_reset_confirm", kwargs={"uidb64": uid, "token": token})
             )
 
-            # Send reset email
             subject = "Password Reset Request"
-            message = render_to_string("accounts/password_reset_email.html", {"reset_url": reset_url, "user": user})
-            send_mail(subject, message, "noreply@readvault.com", [user.email])
+            message = render_to_string("accounts/password_reset_email.html", {
+                "reset_url": reset_url,
+                "user": user
+            })
+
+            # ✅ Send using your reusable email function
+            send_notification_email(subject, message, user.email)
 
             messages.success(request, "Password reset link sent to your email.")
             return redirect("accounts:password_reset_done")
@@ -78,7 +81,7 @@ def password_reset_request(request):
 
     return render(request, "accounts/password_reset.html")
 
-#Password Reset Confirm View
+# Password Reset Confirm View
 def password_reset_confirm(request, uidb64, token):
     try:
         uid = force_str(urlsafe_base64_decode(uidb64))
@@ -106,6 +109,6 @@ def password_reset_confirm(request, uidb64, token):
         messages.error(request, "User not found.")
         return redirect("accounts:password_reset_request")
 
-#Password Reset Done View
+# Password Reset Done View
 def password_reset_done(request):
     return render(request, "accounts/password_reset_done.html")

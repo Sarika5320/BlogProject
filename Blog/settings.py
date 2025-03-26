@@ -158,5 +158,11 @@ LOGIN_REDIRECT_URL = reverse_lazy('admin_app:admin_dashboard')
 CSRF_COOKIE_SECURE = False
 SESSION_COOKIE_SECURE = False
 
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-DEFAULT_FROM_EMAIL = 'webmaster@localhost'
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'itsmesarika14@gmail.com'
+EMAIL_HOST_PASSWORD = 'oqos xrtx kpnm xycu'  # If Gmail, generate App Password from your Google Account
+
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER

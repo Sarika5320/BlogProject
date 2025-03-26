@@ -7,6 +7,7 @@ from django.db.models import Q
 from django.core.paginator import Paginator
 from user_app.models import BlogPost
 from user_app.models import Comment
+from admin_app.utils import send_notification_email  # Email function
 
 # Ensure only admins can delete posts
 def is_admin(user):
@@ -97,6 +98,14 @@ def delete_user(request, user_id):
         return redirect("home")
 
     user = get_object_or_404(User, id=user_id)
+
+    # Send email before deletion
+    send_notification_email(
+        subject="Account Deleted",
+        message="Your account has been removed by the admin. If this was a mistake, please contact support.",
+        recipient_email=user.email
+    )
+
     user.delete()
     messages.success(request, "User deleted successfully!")
     return redirect("admin_app:manage_users")
@@ -105,19 +114,33 @@ def delete_user(request, user_id):
 @user_passes_test(is_admin)
 def delete_post(request, blog_id):
     blog = get_object_or_404(BlogPost, id=blog_id)
+
+    # Send email before deletion
+    subject = "Post Deleted"
+    message = f"Your post titled '{blog.title}' has been removed by the admin for violating community guidelines."
+    recipient_email = blog.user.email  # Corrected field
+
+    send_notification_email(subject, message, recipient_email)
+
     blog.delete()
     messages.success(request, "Post deleted successfully!")
-    return redirect('admin_app:manage_posts')  # Redirect to admin post list
+    return redirect('admin_app:manage_posts')
 
 # Delete Comment View 
 @user_passes_test(is_admin)
 def delete_comment(request, comment_id):
     comment = get_object_or_404(Comment, id=comment_id)
+
+    # Send email before deletion
+    send_notification_email(
+        subject="Comment Deleted",
+        message="Your comment has been removed by the admin as it violated our community guidelines.",
+        recipient_email=comment.user.email
+    )
+
     comment.delete()
     messages.success(request, "Comment deleted successfully!")
     return redirect('admin_app:manage_comments')
-
-
 
 @user_passes_test(is_admin)
 def manage_comments(request):
